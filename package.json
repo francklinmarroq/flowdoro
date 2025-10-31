@@ -1,0 +1,30 @@
+{
+  "name": "pomodoro-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pomodoro Timer - Full Stack Application",
+  "scripts": {
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:preview": "cd frontend && npm run preview",
+    "backend:dev": "cd pomodoro-backend && ./mvnw spring-boot:run",
+    "backend:build": "cd pomodoro-backend && ./mvnw clean package",
+    "backend:test": "cd pomodoro-backend && ./mvnw test",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:frontend",
+    "dev": "concurrently \"npm run frontend:dev\" \"npm run backend:dev\"",
+    "build:all": "npm run frontend:build && npm run backend:build"
+  },
+  "keywords": [
+    "pomodoro",
+    "timer",
+    "vue",
+    "spring-boot",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
