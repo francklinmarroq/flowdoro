@@ -1,6 +1,10 @@
 <template>
-    <div class="bg-white p-8 mt-6 shadow-md rounded-xl">
-        <PomodoroContainer />
+    <div class="flex justify-center">
+        <div
+            class="bg-white w-full xl:w-3/5 lg:w-4/5 p-8 mt-6 shadow-md rounded-xl"
+        >
+            <PomodoroContainer />
+        </div>
     </div>
 </template>
 
