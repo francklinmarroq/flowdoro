@@ -1,92 +1,81 @@
 <template>
     <div
-        class="h-[760px] flex flex-col border-2 w-1/3 rounded-xl p-4"
+        class="h-[760px] flex flex-col border-2 w-1/3 min-w-1/3 rounded-xl"
         :class="{
-            'bg-todo/5 border-todo/50': type === 'to-do',
-            'bg-in-progress/5 border-in-progress/50': type === 'in-progress',
-            'bg-completed/5 border-completed/50': type === 'completed',
+            'bg-todo/5 border-todo/30': state === taskState.TODO,
+            'bg-in-progress/5 border-in-progress/30':
+                state === taskState.IN_PROGRESS,
+            'bg-completed/5 border-completed/30': state === taskState.DONE,
         }"
     >
-        <div class="mb-2">
+        <div>
             <h3
-                class="font-semibold uppercase"
+                class="font-semibold uppercase pl-4 py-4"
                 :class="{
-                    'text-todo': type === 'to-do',
-                    'text-in-progress': type === 'in-progress',
-                    'text-completed': type === 'completed',
+                    'text-todo': state === taskState.TODO,
+                    'text-in-progress': state === taskState.IN_PROGRESS,
+                    'text-completed': state === taskState.DONE,
                 }"
             >
-                {{
-                    type === "to-do"
-                        ? "To Do"
-                        : type === "in-progress"
-                          ? "In Progress"
-                          : "Done"
-                }}
+                {{ title }}
             </h3>
         </div>
 
-        <div class="overflow-scroll">
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
-            <p>card</p>
+        <div
+            @drop="handleDrop"
+            @dragover="handleDragOver"
+            @dragenter="handleDragEnter"
+            @dragleave="handleDragLeave"
+            class="overflow-y-auto w-full h-full px-4 scrollbar-thin"
+            :class="{ 'bg-gray-100': isDragOver }"
+        >
+            <TodoCard v-for="task in tasks" :key="task.id" :task="task" />
         </div>
     </div>
 </template>
 
-<script setup>
-defineProps({
-    type: String,
-});
+<script setup lang="ts">
+import TodoCard from "./TodoCard.vue";
+import type { Task } from "@/stores/tasks";
+import { taskState, useTasksStore } from "@/stores/tasks";
+import { ref } from "vue";
+
+const tasksStore = useTasksStore();
+const isDragOver = ref(false);
+
+const props = defineProps<{
+    state: taskState;
+    title: string;
+    tasks: Task[];
+}>();
+
+function handleDragOver(event: DragEvent) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = "move";
+    }
+}
+
+function handleDragEnter() {
+    isDragOver.value = true;
+}
+
+function handleDragLeave(event: DragEvent) {
+    const target = event.currentTarget as HTMLElement;
+    const relatedTarget = event.relatedTarget as HTMLElement;
+
+    if (!target.contains(relatedTarget)) {
+        isDragOver.value = false;
+    }
+}
+
+function handleDrop(event: DragEvent) {
+    event.preventDefault();
+    isDragOver.value = false;
+
+    if (event.dataTransfer) {
+        const taskId = parseInt(event.dataTransfer.getData("taskId"));
+        tasksStore.updateTaskState(taskId, props.state);
+    }
+}
 </script>
