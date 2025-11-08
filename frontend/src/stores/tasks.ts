@@ -14,28 +14,7 @@ export interface Task {
 
 export const useTasksStore = defineStore("tasks", {
   state: () => ({
-    tasks: [
-      {
-        id: 1,
-        title: "Title for the task 1",
-        description: "Description for Task 1",
-        state: taskState.TODO,
-      },
-      {
-        id: 2,
-        title: "This is the title for task number 2",
-        description: "Description for Task 2",
-        state: taskState.IN_PROGRESS,
-      },
-      {
-        id: 3,
-        title:
-          "This is the title for task number 3, im making them lonker to test the functionality of the application",
-        description:
-          "Description for Task 3, it provides a detailed description of the task. It helps users understand the purpose and requirements of the task. im making them lonker to test the functionality of the application",
-        state: taskState.DONE,
-      },
-    ],
+    tasks: [] as Task[],
   }),
   actions: {
     addTask(task: Task) {
@@ -44,11 +23,22 @@ export const useTasksStore = defineStore("tasks", {
     removeTask(id: number) {
       this.tasks = this.tasks.filter((task) => task.id !== id);
     },
+    updateTask(id: number, updatedTask: Partial<Task>) {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) {
+        Object.assign(task, updatedTask);
+      }
+    },
     updateTaskState(id: number, newState: taskState) {
       const task = this.tasks.find((task) => task.id === id);
       if (task) {
         task.state = newState;
       }
+    },
+    getNextId(): number {
+      return this.tasks.length > 0
+        ? Math.max(...this.tasks.map((t) => t.id)) + 1
+        : 1;
     },
   },
   getters: {
