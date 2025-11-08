@@ -21,12 +21,31 @@
         <div class="flex justify-center items-center gap-4">
             <div
                 @click="toggleTimerRunning"
-                class="size-12 rounded-full bg-primary-red hover:cursor-pointer"
-            ></div>
+                class="size-12 rounded-full bg-prim bg-primary-red hover:cursor-pointer flex items-center justify-center"
+            >
+                <img
+                    v-if="timer.isRunning"
+                    src="@/assets/pause-svgrepo-com.svg"
+                    alt="Pause"
+                    class="size-6"
+                />
+                <img
+                    v-else
+                    src="@/assets/play-svgrepo-com.svg"
+                    alt="Play"
+                    class="size-6"
+                />
+            </div>
             <div
                 @click="resetTimer"
-                class="size-11 rounded-full bg-white hover:cursor-pointer"
-            ></div>
+                class="size-11 rounded-full bg-white hover:cursor-pointer flex items-center justify-center border-2 border-gray-300"
+            >
+                <img
+                    src="@/assets/reset-svgrepo-com.svg"
+                    alt="Reset"
+                    class="size-6 opacity-60"
+                />
+            </div>
         </div>
     </div>
 </template>

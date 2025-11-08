@@ -1,0 +1,13 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Reset/Restart icon matching play/pause style -->
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 12C4.5 7.85786 7.85786 4.5 12 4.5C14.0471 4.5 15.9046 5.31165 17.2671 6.62842L18.5 5.39551V9.5H14.3955L15.7789 8.11659C14.7367 7.12257 13.3385 6.5 12 6.5C8.96243 6.5 6.5 8.96243 6.5 12C6.5 15.0376 8.96243 17.5 12 17.5C14.5435 17.5 16.6805 15.7949 17.3167 13.5H19.3912C18.7161 16.8638 15.699 19.5 12 19.5C7.85786 19.5 4.5 16.1421 4.5 12Z" fill="#111827"/>
+</g>
+
+</svg>
